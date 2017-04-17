@@ -8,67 +8,14 @@
 
 import UIKit
 
-
-extension UIViewController {
-    
-    var activityIndicatorTag: Int {
-        return 999999
-    }
-    
-    //Previous code
-    func startActivityIndicator( _ style: UIActivityIndicatorViewStyle = .gray,
-        location: CGPoint? = nil) {
-        
-        let loc = location ?? self.view.center
-        
-        //Ensure the UI is updated from the main thread
-        
-        //in case this method is called from a closure
-        
-        DispatchQueue.main.async(execute: {
-            
-            //Create the activity indicator
-            
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: style)
-            //Add the tag so we can find the view in order to remove it later
-            
-            activityIndicator.tag = self.activityIndicatorTag
-            //Set the location
-            
-            activityIndicator.center = loc
-            activityIndicator.hidesWhenStopped = true
-            //Start animating and add the view
-            
-            activityIndicator.startAnimating()
-            self.view.addSubview(activityIndicator)
-        })
-    }
-    
-    //Previous code
-    
-    
-    func stopActivityIndicator() {
-        
-        //Again, we need to ensure the UI is updated from the main thread!
-        DispatchQueue.main.async(execute: {
-            //Here we find the `UIActivityIndicatorView` and remove it from the view
-            
-            if let activityIndicator = self.view.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView {
-                activityIndicator.stopAnimating()
-                activityIndicator.removeFromSuperview()
-            }
-            /*
-            if let activityIndicator = self.view.subviews.filter(
-                { $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView {
-                activityIndicator.stopAnimating()
-                activityIndicator.removeFromSuperview()
-            }*/
-        })
-    }
-}
-
-
 class HomeViewController: UIViewController, UITextFieldDelegate {
+    
+    var stringMessage : String?
+    //    {
+    //    didSet{
+    //        self.textField?.text = stringMessage
+    //    }
+    //}
 
     @IBOutlet var textField : UITextField!
     @IBOutlet var buttonNext: UIButton!
@@ -78,20 +25,33 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         self.textField.delegate = self
+        self.textField.text = stringMessage
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("stringMessage Will Appear == >>> \(stringMessage)")
+        self.textField.text = stringMessage
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //self.startActivityIndicator()
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        //    self.stopActivityIndicator()
+        //}
+        
+        print("stringMessage == Did Appear >>> \(stringMessage)")
+        self.textField.text = stringMessage
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.startActivityIndicator()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { 
-            self.stopActivityIndicator()
-        }
-    }
     
     
     /*
@@ -103,11 +63,23 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+     @IBAction func buttonNextPressed(_ sender: Any){
+        
+        let storyBoard =  UIStoryboard.init(name: "Main", bundle: nil)
+        let myNextViewController : DetailViewController = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        
+        myNextViewController.stringMessage = self.textField.text
+        //myNextViewController.previousViewController = self
+        
+        self.navigationController?.pushViewController(myNextViewController, animated: true)
+    }
 
     
 }
 
 extension HomeViewController {
+    
     //MARK:- UITextFieldDelegate
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         return true
@@ -130,6 +102,9 @@ extension HomeViewController {
         return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        
+        textField.resignFirstResponder()
+        
         return true
     }
 }

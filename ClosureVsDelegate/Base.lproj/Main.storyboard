@@ -29,7 +29,7 @@
         <!--Home View Controller-->
         <scene sceneID="cx5-2g-ehU">
             <objects>
-                <viewController id="vcq-LD-Nie" customClass="HomeViewController" customModule="ClosureVsDelegate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vcq-LD-Nie" customClass="HomeViewController" customModule="ClosureVsDelegate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KLZ-oO-Bi5"/>
                         <viewControllerLayoutGuide type="bottom" id="52H-cV-x7k"/>
@@ -65,6 +65,9 @@
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonNextPressed:" destination="vcq-LD-Nie" eventType="touchUpInside" id="9fA-hx-MO3"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Eak-52-bBD">
                                 <rect key="frame" x="85" y="72" width="270" height="31"/>
@@ -84,10 +87,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SQc-1Z-17D">
-                                <rect key="frame" x="85" y="72" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -117,7 +116,7 @@
         <!--Detail View Controller-->
         <scene sceneID="vfg-Ob-bfh">
             <objects>
-                <viewController id="aBj-cJ-C4o" customClass="DetailViewController" customModule="ClosureVsDelegate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="aBj-cJ-C4o" customClass="DetailViewController" customModule="ClosureVsDelegate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wuU-zr-c8R"/>
                         <viewControllerLayoutGuide type="bottom" id="AZ9-LR-F4v"/>
@@ -172,7 +171,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xs9-sr-d0f">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xs9-sr-d0f">
                                 <rect key="frame" x="20" y="597" width="140" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -182,7 +181,16 @@
                                 <state key="normal" title="Back">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="backAction" destination="aBj-cJ-C4o" eventType="touchUpInside" id="ULY-v0-7o8"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iCc-vm-Vv2">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="backgroundColor" red="0.28928577389500376" green="1" blue="0.29809889762877184" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -190,7 +198,11 @@
                             <constraint firstItem="3kt-Zp-ECX" firstAttribute="leading" secondItem="lZ1-eb-SrI" secondAttribute="leading" constant="20" id="Cmn-d1-FFI"/>
                             <constraint firstAttribute="trailing" secondItem="cBf-zd-0Vx" secondAttribute="trailing" id="EL8-Um-9Xs"/>
                             <constraint firstItem="AZ9-LR-F4v" firstAttribute="top" secondItem="Ak5-hB-0VL" secondAttribute="bottom" constant="40" id="GRE-gg-Z1D"/>
+                            <constraint firstItem="xs9-sr-d0f" firstAttribute="leading" secondItem="lZ1-eb-SrI" secondAttribute="leadingMargin" constant="4" id="KaE-Yq-bcj"/>
                             <constraint firstItem="IDN-WE-yt3" firstAttribute="leading" secondItem="3kt-Zp-ECX" secondAttribute="trailing" constant="20" id="Ofd-hB-iAU"/>
+                            <constraint firstItem="xs9-sr-d0f" firstAttribute="bottom" secondItem="Ak5-hB-0VL" secondAttribute="bottom" id="YOF-vp-NAM"/>
+                            <constraint firstItem="iCc-vm-Vv2" firstAttribute="centerY" secondItem="lZ1-eb-SrI" secondAttribute="centerY" id="iIK-4x-xyF"/>
+                            <constraint firstItem="iCc-vm-Vv2" firstAttribute="centerX" secondItem="lZ1-eb-SrI" secondAttribute="centerX" id="nX1-AI-foo"/>
                             <constraint firstItem="cBf-zd-0Vx" firstAttribute="leading" secondItem="lZ1-eb-SrI" secondAttribute="leading" id="oab-Ml-qy7"/>
                             <constraint firstItem="3kt-Zp-ECX" firstAttribute="top" secondItem="cBf-zd-0Vx" secondAttribute="bottom" constant="8" id="urc-EN-hoK"/>
                             <constraint firstItem="cBf-zd-0Vx" firstAttribute="top" secondItem="lZ1-eb-SrI" secondAttribute="top" id="vXn-oT-LzY"/>
@@ -200,6 +212,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndi" destination="iCc-vm-Vv2" id="h96-wA-buJ"/>
                         <outlet property="buttonBack" destination="xs9-sr-d0f" id="GLZ-Yt-rYm"/>
                         <outlet property="buttonNext" destination="Ak5-hB-0VL" id="lJo-2K-uTF"/>
                         <outlet property="textField" destination="IDN-WE-yt3" id="kF4-y9-duV"/>
